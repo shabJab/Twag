@@ -10,10 +10,14 @@ pipeline{
             }
         }
         stage('Docker_build') {
-            echo 'Docker-build'
+            steps {
+                echo 'Docker-build' //com
+            }
         }
         stage('Deploy') {
-            echo 'Deploy-test'
+            steps {
+                echo 'Deploy-test'
+            }
         }
     }
 }
