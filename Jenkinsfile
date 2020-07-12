@@ -9,7 +9,11 @@ pipeline{
                 }
             }
         }
-        stage('Docker_build') {}
-        stage('Deploy') {}
+        stage('Docker_build') {
+            echo 'Docker-build'
+        }
+        stage('Deploy') {
+            echo 'Deploy-test'
+        }
     }
 }
