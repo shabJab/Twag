@@ -23,7 +23,7 @@ pipeline{
                 script{
                     echo 'Building a docker image'
 
-                    IMAGE_TAG = "${env.BUILD_DATE}_{env.GIT_COMMIT}"
+                    IMAGE_TAG = "${env.BUILD_DATE}_${env.GIT_COMMIT}"
                     echo "Image tag: ${IMAGE_TAG}"
 
                     // Build a docker image and pass a git commit id as a building argument
