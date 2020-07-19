@@ -36,6 +36,16 @@ pipeline{
         stage('Deploy') {
             steps {
                 echo 'Deploy-test'
+                script {
+                    res = sh (
+                        script: """
+                        docker run --name twag -d ${env.DOCKER_IMAGE_NAME}:${IMAGE_TAG}
+                        """,
+                        returnStdout: true
+                    ).trim()
+
+                    echo "${res}"
+                }
             }
         }
     }
