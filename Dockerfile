@@ -1,10 +1,10 @@
 FROM python:3.8
 
 
-ARG GIT_HASH_ID
+ARG GIT_COMMIT
 
 # This will be a unique identifier of the running code
-ENV GIT_HASH_ID=$GIT_HASH_ID
+ENV GIT_COMMIT=$GIT_COMMIT
 
 WORKDIR /opt
 
