@@ -6,6 +6,8 @@ pipeline{
         ).trim()
 
         DOCKER_IMAGE_NAME = "twag"
+
+        APP_NAME = "twag"
     }
 
     agent any
@@ -37,12 +39,38 @@ pipeline{
             steps {
                 echo 'Deploy-test'
                 script {
-                    res = sh (
-                        script: """
-                        docker run --name twag -d ${env.DOCKER_IMAGE_NAME}:${IMAGE_TAG}
-                        """,
-                        returnStdout: true
-                    ).trim()
+                    try {
+                        res = sh (
+                            script: """
+                            docker stop ${env.APP_NAME}
+                            """,
+                            returnStdout: true
+                        ).trim()
+                    } catch (exc){
+                        echo "[STOP FAILED] Container ${env.APP_NAME} does not exist"
+                    }
+
+                    try {
+                        res = sh (
+                            script: """
+                            docker rm ${env.APP_NAME}
+                            """,
+                            returnStdout: true
+                        ).trim()
+                    } catch (exc) {
+                        echo "[RM FAILED] Container ${env.APP_NAME} does not exist"
+                    }
+
+                    try {
+                        res = sh (
+                            script: """
+                            docker run --name ${APP_NAME} -d ${env.DOCKER_IMAGE_NAME}:${IMAGE_TAG}
+                            """,
+                            returnStdout: true
+                        ).trim()
+                    } catch (exc) {
+                        echo "[RUN FAILED] Failed to create ${env.APP_NAME} container"
+                    }
 
                     echo "${res}"
                 }
