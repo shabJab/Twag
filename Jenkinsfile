@@ -28,7 +28,7 @@ pipeline{
 
                     // Build a docker image and pass a git commit id as a building argument
                     def docker_image = docker.build(
-                        "${env.DOCKER_IMAGE_NAME}:{IMAGE_TAG}",
+                        "${env.DOCKER_IMAGE_NAME}:${IMAGE_TAG}",
                         "--build-arg GIT_COMMIT=${env.GIT_COMMIT} .")
                 }
             }
